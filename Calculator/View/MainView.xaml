@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="Calculator.View.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Calculator.View"
+             xmlns:viewModel="clr-namespace:Calculator.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewModel:MainViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <Style TargetType="TextBox" x:Key="textStyle">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="15"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid Background="#9E9E9E">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding A1}" Style="{StaticResource textStyle}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding A2}" Style="{StaticResource textStyle}"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding A3}" Style="{StaticResource textStyle}"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding A4}" Style="{StaticResource textStyle}"/>
+
+        <RadioButton IsChecked="{Binding IsAdd}" GroupName="1" Content="+" Grid.Row="1" Grid.Column="2" FontSize="20" Margin="30,0,0,0" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <RadioButton IsChecked="{Binding IsSubstraction}" GroupName="1" Content="-" Grid.Row="2" Grid.Column="2" FontSize="20" Margin="30,0,0,0" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <RadioButton IsChecked="{Binding IsMultiplication}" GroupName="1" Content="/" Grid.Row="3" Grid.Column="2" FontSize="20" Margin="30,0,0,0"  FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <RadioButton IsChecked="{Binding IsDivision}" GroupName="1" Content="*" Grid.Row="4" Grid.Column="2" FontSize="20" Margin="30,0,0,0" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+
+        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding B1}" Style="{StaticResource textStyle}"/>
+        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding B2}" Style="{StaticResource textStyle}"/>
+        <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding B3}" Style="{StaticResource textStyle}"/>
+        <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding B4}" Style="{StaticResource textStyle}"/>
+
+        <Button Command="{Binding CalculateCommand}" Content="=" Grid.Row="2" Grid.RowSpan="2" Height="70" Width="70" Grid.Column="4"
+                FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Top" HorizontalContentAlignment="Center"/>
+
+        <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding S1}" Style="{StaticResource textStyle}"/>
+        <TextBox Grid.Row="2" Grid.Column="5" Text="{Binding S2}" Style="{StaticResource textStyle}"/>
+        <TextBox Grid.Row="3" Grid.Column="5" Text="{Binding S3}" Style="{StaticResource textStyle}"/>
+        <TextBox Grid.Row="4" Grid.Column="5" Text="{Binding S4}" Style="{StaticResource textStyle}"/>
+    </Grid>
+</UserControl>
