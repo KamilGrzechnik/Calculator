@@ -62,7 +62,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Properties\Methods\RelayCommand.cs" />
+    <Compile Include="Methods\AsmProxy.cs" />
+    <Compile Include="Methods\AssemblerHandler.cs" />
+    <Compile Include="Methods\RelayCommand.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="View\App.xaml.cs">

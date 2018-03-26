@@ -1,17 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Calculator.Methods;
 using System.Windows.Input;
-using System.Runtime.InteropServices;
+using System.Globalization;
+using System.Windows;
 
 namespace Calculator.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
         private string _a1;
+        private string _a2;
+        private string _a3;
+        private string _a4;
+        private string _b1;
+        private string _b2;
+        private string _b3;
+        private string _b4;
+        private string _s1;
+        private string _s2;
+        private string _s3;
+        private string _s4;
+
         public string A1
         {
             get => _a1;
@@ -21,8 +31,6 @@ namespace Calculator.ViewModel
                 NotifyPropertyChanged();
             }
         }
-
-        private string _a2;
         public string A2
         {
             get => _a2;
@@ -32,8 +40,6 @@ namespace Calculator.ViewModel
                 NotifyPropertyChanged();
             }
         }
-
-        private string _a3;
         public string A3
         {
             get => _a3;
@@ -43,8 +49,6 @@ namespace Calculator.ViewModel
                 NotifyPropertyChanged();
             }
         }
-
-        private string _a4;
         public string A4
         {
             get => _a4;
@@ -54,8 +58,6 @@ namespace Calculator.ViewModel
                 NotifyPropertyChanged();
             }
         }
-
-        private string _b1;
         public string B1
         {
             get => _b1;
@@ -65,8 +67,6 @@ namespace Calculator.ViewModel
                 NotifyPropertyChanged();
             }
         }
-
-        private string _b2;
         public string B2
         {
             get => _b2;
@@ -76,8 +76,6 @@ namespace Calculator.ViewModel
                 NotifyPropertyChanged();
             }
         }
-
-        private string _b3;
         public string B3
         {
             get => _b3;
@@ -87,8 +85,6 @@ namespace Calculator.ViewModel
                 NotifyPropertyChanged();
             }
         }
-
-        private string _b4;
         public string B4
         {
             get => _b4;
@@ -98,8 +94,6 @@ namespace Calculator.ViewModel
                 NotifyPropertyChanged();
             }
         }
-
-        private string _s1;
         public string S1
         {
             get => _s1;
@@ -109,8 +103,6 @@ namespace Calculator.ViewModel
                 NotifyPropertyChanged();
             }
         }
-
-        private string _s2;
         public string S2
         {
             get => _s2;
@@ -120,8 +112,6 @@ namespace Calculator.ViewModel
                 NotifyPropertyChanged();
             }
         }
-
-        private string _s3;
         public string S3
         {
             get => _s3;
@@ -131,8 +121,6 @@ namespace Calculator.ViewModel
                 NotifyPropertyChanged();
             }
         }
-
-        private string _s4;
         public string S4
         {
             get => _s4;
@@ -187,14 +175,85 @@ namespace Calculator.ViewModel
             }
         }
 
+        public List<string> ValuesList;
+        public List<float> FloatList;
+        public List<float> ResultsSet;
+        private AssemblerHandler assemblerHandler;
+
         public ICommand CalculateCommand { get; set; }
-        
+        public ICommand ClearCommand { get; set; }
 
         public MainViewModel()
         {
             CalculateCommand = new RelayCommand(CalculateExecute, CalculateCanExecute);
+            ClearCommand = new RelayCommand(ClearExecute, ClearCanExecute);
+            assemblerHandler = new AssemblerHandler();
             IsAdd = true;
             Initialize();
+        }
+
+        private void CalculateExecute(object obj)
+        {
+            ParseElements();
+            if (IsAdd)
+            {
+                ResultsSet = assemblerHandler.Addition(FloatList);
+            }
+            else if (IsSubstraction)
+            {
+                ResultsSet = assemblerHandler.Substraction(FloatList);
+            }
+            else if (IsMultiplication)
+            {
+                ResultsSet = assemblerHandler.Multiplication(FloatList);
+            }
+            else if (IsDivision)
+            {
+                ResultsSet = assemblerHandler.Division(FloatList);
+            }
+            try
+            {
+                S1 = ResultsSet[0].ToString();
+                S2 = ResultsSet[1].ToString();
+                S3 = ResultsSet[2].ToString();
+                S4 = ResultsSet[3].ToString();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        private bool CalculateCanExecute(object arg)
+        {
+            return true;
+        }
+
+        private void ClearExecute(object obj)
+        {
+            Initialize();
+        }
+
+        private bool ClearCanExecute(object arg)
+        {
+            return true;
+        }
+
+        private void ParseElements()
+        {
+            ValuesList = new List<string>() { A1, A2, A3, A4, B1, B2, B3, B4 };
+            FloatList = new List<float>();
+            foreach (var number in ValuesList)
+            {
+                try
+                {
+                    var x = float.Parse(number, CultureInfo.InvariantCulture);
+                    FloatList.Add(x);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Conversion to float error");
+                }
+            }
         }
 
         private void Initialize()
@@ -212,56 +271,7 @@ namespace Calculator.ViewModel
             S3 = "0";
             S4 = "0";
         }
-
-        private void CalculateExecute(object obj)
-        {
-            if(IsAdd)
-            {
-
-            }
-            else if (IsSubstraction)
-            {
-
-            }
-            else if(IsMultiplication)
-            {
-
-            }
-            else if(IsDivision)
-            {
-                
-            }
-        }
-
-        private bool CalculateCanExecute(object arg)
-        {
-            return true;
-        }
     }
 
-    public class AsmProxy
-    {
-        public override string ToString()
-        {
-            return base.ToString();
-        }
 
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        [DllImport("Asm.dll")]
-        private static extern float asmAddVec(float a1, float a2, float a3, float a4, float b1, float b2, float b3, float b4);
-
-        public double executeAsmAddVec(float a1, float a2, float a3, float a4, float b1, float b2, float b3, float b4)
-        {
-            return asmAddVec( a1,  a2,  a3,  a4,  b1,  b2,  b3,  b4);
-        }
-    }
 }

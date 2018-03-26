@@ -19,6 +19,7 @@
             <Setter Property="Width" Value="150"/>
             <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="15"/>
+            <Setter Property="MaxLength" Value="15"/>
         </Style>
     </UserControl.Resources>
     <Grid Background="#9E9E9E">
@@ -40,27 +41,30 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding A1}" Style="{StaticResource textStyle}"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding A2}" Style="{StaticResource textStyle}"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding A3}" Style="{StaticResource textStyle}"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding A4}" Style="{StaticResource textStyle}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding A1}" Style="{StaticResource textStyle}" PreviewTextInput="TextBox_PreviewTextInput"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding A2}" Style="{StaticResource textStyle}" PreviewTextInput="TextBox_PreviewTextInput"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding A3}" Style="{StaticResource textStyle}" PreviewTextInput="TextBox_PreviewTextInput"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding A4}" Style="{StaticResource textStyle}" PreviewTextInput="TextBox_PreviewTextInput"/>
 
         <RadioButton IsChecked="{Binding IsAdd}" GroupName="1" Content="+" Grid.Row="1" Grid.Column="2" FontSize="20" Margin="30,0,0,0" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <RadioButton IsChecked="{Binding IsSubstraction}" GroupName="1" Content="-" Grid.Row="2" Grid.Column="2" FontSize="20" Margin="30,0,0,0" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <RadioButton IsChecked="{Binding IsMultiplication}" GroupName="1" Content="/" Grid.Row="3" Grid.Column="2" FontSize="20" Margin="30,0,0,0"  FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <RadioButton IsChecked="{Binding IsDivision}" GroupName="1" Content="*" Grid.Row="4" Grid.Column="2" FontSize="20" Margin="30,0,0,0" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 
-        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding B1}" Style="{StaticResource textStyle}"/>
-        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding B2}" Style="{StaticResource textStyle}"/>
-        <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding B3}" Style="{StaticResource textStyle}"/>
-        <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding B4}" Style="{StaticResource textStyle}"/>
+        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding B1}" Style="{StaticResource textStyle}" PreviewTextInput="TextBox_PreviewTextInput"/>
+        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding B2}" Style="{StaticResource textStyle}" PreviewTextInput="TextBox_PreviewTextInput"/>
+        <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding B3}" Style="{StaticResource textStyle}" PreviewTextInput="TextBox_PreviewTextInput"/>
+        <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding B4}" Style="{StaticResource textStyle}" PreviewTextInput="TextBox_PreviewTextInput"/>
 
         <Button Command="{Binding CalculateCommand}" Content="=" Grid.Row="2" Grid.RowSpan="2" Height="70" Width="70" Grid.Column="4"
                 FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Top" HorizontalContentAlignment="Center"/>
 
-        <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding S1}" Style="{StaticResource textStyle}"/>
-        <TextBox Grid.Row="2" Grid.Column="5" Text="{Binding S2}" Style="{StaticResource textStyle}"/>
-        <TextBox Grid.Row="3" Grid.Column="5" Text="{Binding S3}" Style="{StaticResource textStyle}"/>
-        <TextBox Grid.Row="4" Grid.Column="5" Text="{Binding S4}" Style="{StaticResource textStyle}"/>
+        <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding S1}" Style="{StaticResource textStyle}" IsReadOnly="True"/>
+        <TextBox Grid.Row="2" Grid.Column="5" Text="{Binding S2}" Style="{StaticResource textStyle}" IsReadOnly="True"/>
+        <TextBox Grid.Row="3" Grid.Column="5" Text="{Binding S3}" Style="{StaticResource textStyle}" IsReadOnly="True"/>
+        <TextBox Grid.Row="4" Grid.Column="5" Text="{Binding S4}" Style="{StaticResource textStyle}" IsReadOnly="True"/>
+
+        <Button Command="{Binding ClearCommand}" Content="Clear" Grid.Row="6" Grid.ColumnSpan="2" Grid.RowSpan="3" Height="30" Width="80" Grid.Column="1"
+                FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Top" HorizontalContentAlignment="Center"/>
     </Grid>
 </UserControl>
